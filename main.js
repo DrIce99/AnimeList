@@ -2,6 +2,15 @@ const animeContainer = document.getElementById("anime-container");
 const searchBar = document.getElementById("searchName");
 const searchChar = document.getElementById("searchCharre");
 
+const menuContainer = document.querySelector('.action-menu-container');
+const mainBtn = document.querySelector('.main-action-btn');
+
+const editModal = document.getElementById('editModal');
+const modalSearch = document.getElementById('modalSearch');
+const modalResults = document.getElementById('modalSearchResults');
+const editableContainer = document.getElementById('editableCardContainer');
+let animeInModifica = null;
+
 const listaAnime = []
 
 let addOnce = false
@@ -17,9 +26,7 @@ function normalizeText(text) {
 }
 
 fetch('./anime.json')
-  .then((res) => {
-    return res.json();
-  })
+  .then((res) => res.json())
   .then((data) => {
     elaborate(data);
     updateAnimeCount(data.length);
@@ -134,7 +141,7 @@ function elaborate(data) {
         color = "bg-gray-box";
         imgcolor = "bgimg-gray-box";
     }
-    data['id'] = i;
+    anime.id = i;
     console.log(data['id'])
     let temp = document.createElement("div");
     let genre = `<div class="card-description">`;
@@ -345,38 +352,28 @@ function getColorClass(gen) {
   switch (gen) {
     case "Azione":
       return "bg-green-box";
-      break;
     case "Avventura":
       return "bg-brown-box";
-      break;
     case "Commedia":
       return "bg-gray-box";
-      break;
     case "Ecchi":
     case "Harem":
       return "bg-pink-box";
-      break;
     case "Horror":
     case "Mistero":
       return "bg-white-box";
-      break;
     case "Militari":
     case "Storico":
       return "bg-yellow-box";
-      break;
     case "Romantico":
     case "Sentimentale":
       return "bg-purple-box";
-      break;
     case "Sci-Fi":
       return "bg-blue-box";
-      break;
     case "Scolastico":
       return "bg-red-box";
-      break;
     case "Sport":
       return "bg-light-blue-box";
-      break;
     default:
       return "bg-gray-box";
   };
@@ -411,3 +408,95 @@ function updateAnimeCount(filteredCount) {
   const countBox = document.getElementById("anime-count");
   countBox.textContent = `${filteredCount}/${listaAnime.length}`;
 }
+
+mainBtn.addEventListener('click', () => {
+  menuContainer.classList.toggle('open');
+  mainBtn.classList.toggle('active');
+});
+
+// Esempio per l'eliminazione (usando l'ID dinamico)
+document.getElementById("deleteAnime").addEventListener("click", () => {
+  const idDaCercare = prompt("Inserisci l'ID dell'anime da eliminare (es: anime-42):");
+  // Logica per filtrare listaAnime e ricaricare la vista
+});
+
+// Apri modale
+document.getElementById('editAnime').addEventListener('click', () => {
+  editModal.style.display = 'flex';
+});
+
+// Chiudi modale
+document.querySelector('.close-modal').addEventListener('click', () => {
+  editModal.style.display = 'none';
+});
+
+// Ricerca dinamica nella modale
+modalSearch.addEventListener('keyup', (e) => {
+  const term = e.target.value.toLowerCase();
+  if (term.length < 2) { modalResults.innerHTML = ""; return; }
+  
+  const matches = listaAnime.filter(a => a.nome.toLowerCase().includes(term)).slice(0, 5);
+  modalResults.innerHTML = matches.map(a => `<div class="search-item" onclick="caricaAnimeInModale(${a.id})">${a.nome}</div>`).join('');
+});
+
+// Funzione globale per caricare i dati (chiamata dal click sui risultati)
+window.caricaAnimeInModale = function(id) {
+  const anime = listaAnime.find(a => a.id === id);
+  animeInModifica = anime;
+  modalResults.innerHTML = "";
+  modalSearch.value = anime.nome;
+
+  // Generiamo la card con INPUT al posto dei testi
+  editableContainer.innerHTML = `
+    <div class="container-card" style="border: 1px solid #ff5fcb; padding: 20px; border-radius: 20px;">
+      <label>Titolo:</label>
+      <input type="text" class="edit-input" id="edit-nome" value="${anime.nome}">
+      
+      <label>Copertina (URL):</label>
+      <input type="text" class="edit-input" id="edit-img" value="${anime.copertina}">
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+          <label>Anno:</label>
+          <input type="text" class="edit-input" id="edit-anno" value="${anime.anno_uscita}">
+        </div>
+        <div>
+          <label>Episodi:</label>
+          <input type="text" class="edit-input" id="edit-ep" value="${anime.episodi}">
+        </div>
+      </div>
+
+      <label>Studio:</label>
+      <input type="text" class="edit-input" id="edit-studio" value="${anime.studio}">
+
+      <label>Rating (x/10):</label>
+      <input type="text" class="edit-input" id="edit-rating" value="${anime.rating_personale}">
+    </div>
+  `;
+};
+
+// Salvataggio temporaneo in memoria
+document.getElementById('saveAnimeChanges').addEventListener('click', () => {
+  if (!animeInModifica) return;
+
+  animeInModifica.nome = document.getElementById('edit-nome').value;
+  animeInModifica.copertina = document.getElementById('edit-img').value;
+  animeInModifica.anno_uscita = document.getElementById('edit-anno').value;
+  animeInModifica.episodi = document.getElementById('edit-ep').value;
+  animeInModifica.studio = document.getElementById('edit-studio').value;
+  animeInModifica.rating_personale = document.getElementById('edit-rating').value;
+
+  alert("Modifiche salvate in memoria!");
+  elaborate(listaAnime); // Rinfresca la dashboard
+});
+
+// Download del file JSON finale
+document.getElementById('downloadJson').addEventListener('click', () => {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(listaAnime, null, 2));
+  const downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute("href", dataStr);
+  downloadAnchorNode.setAttribute("download", "anime_aggiornato.json");
+  document.body.appendChild(downloadAnchorNode);
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
+});
