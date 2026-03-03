@@ -182,35 +182,69 @@ function elaborate(data) {
 }
 
 // ricerca
-searchBar.addEventListener("keyup", (e) => {
-  const input = normalizeText(e.target.value.toLowerCase());
+// searchBar.addEventListener("keyup", (e) => {
+//   const input = normalizeText(e.target.value.toLowerCase());
 
-  const generi = listaAnime.filter(data => {
-    const matchNome = data.nome.toLowerCase().includes(input);
-    const matchOriginale = data.nome_originale.toLowerCase().includes(input);
-    return matchNome || matchOriginale;
-  });
+//   const generi = listaAnime.filter(data => {
+//     const matchNome = data.nome.toLowerCase().includes(input);
+//     const matchOriginale = data.nome_originale.toLowerCase().includes(input);
+//     return matchNome || matchOriginale;
+//   });
 
-  console.log(generi.length);
-  animeContainer.innerHTML = "";
-  elaborate(generi);
-  updateAnimeCount(generi.length);
-});
+//   console.log(generi.length);
+//   animeContainer.innerHTML = "";
+//   elaborate(generi);
+//   updateAnimeCount(generi.length);
+// });
 
-searchChar.addEventListener("keyup", (e) => {
-  const input = e.target.value.toLowerCase();
+// searchChar.addEventListener("keyup", (e) => {
+//   const input = e.target.value.toLowerCase();
 
-  const characters = listaAnime.filter(data => {
-    return data.personaggi.some(gen => 
-      gen.character.toLowerCase().startsWith(input)
+//   const characters = listaAnime.filter(data => {
+//     return data.personaggi.some(gen => 
+//       gen.character.toLowerCase().startsWith(input)
+//     );
+//   });
+
+//   console.log(characters.length);
+//   animeContainer.innerHTML = "";
+//   elaborate(characters);
+//   updateAnimeCount(characters.length);
+// });
+
+function applyFilters() {
+  const nameInput = normalizeText(searchBar.value);
+  const charInput = searchChar.value.toLowerCase();
+  const selectedGenres = Array.from(document.querySelectorAll(".genre-checkbox:checked"))
+                              .map(cb => cb.value.toLowerCase());
+
+  const filtrati = listaAnime.filter(anime => {
+    // 1. Filtro Nome
+    const matchNome = normalizeText(anime.nome).includes(nameInput) || 
+                      normalizeText(anime.nome_originale).includes(nameInput);
+    
+    // 2. Filtro Personaggi
+    const matchChar = charInput === "" || anime.personaggi.some(c => 
+      c.character.toLowerCase().includes(charInput)
     );
+
+    // 3. Filtro Generi (AND logic: deve averli tutti)
+    const animeGenres = anime.generi.map(g => g.genere.toLowerCase());
+    const matchGenres = selectedGenres.every(gen => animeGenres.includes(gen));
+
+    return matchNome && matchChar && matchGenres;
   });
 
-  console.log(characters.length);
   animeContainer.innerHTML = "";
-  elaborate(characters);
-  updateAnimeCount(characters.length);
-});
+  elaborate(filtrati);
+  updateAnimeCount(filtrati.length);
+}
+
+// Collega tutto alla stessa funzione
+searchBar.addEventListener("keyup", applyFilters);
+searchChar.addEventListener("keyup", applyFilters);
+// Per le checkbox, usa l'evento change nella delega o nel loop
+
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -276,55 +310,82 @@ let genreList = [
 
 const genreListDiv = document.getElementById("genreList");
 
+genreList.sort();
+
+let lastLetter = "";
 genreList.forEach(gen => {
+  const currentLetter = gen.charAt(0).toUpperCase();
+  
+  // Se la lettera cambia, aggiungi uno spazio maggiore o un separatore
+  if (currentLetter !== lastLetter) {
+    const spacer = document.createElement("div");
+    spacer.style.gridColumn = "1 / -1"; // Occupa tutta la riga
+    spacer.style.marginTop = "15px";
+    spacer.style.borderBottom = "1px solid #333";
+    spacer.style.color = "#555";
+    spacer.innerText = currentLetter;
+    genreListDiv.appendChild(spacer);
+    lastLetter = currentLetter;
+  }
+
   const label = document.createElement("label");
   label.classList.add("genre-label");
-  let colorClass = "";
-  switch (gen) {
-    case "Azione":
-      colorClass = "bg-green-box";
-      break;
-    case "Avventura":
-      colorClass = "bg-brown-box";
-      break;
-    case "Commedia":
-      colorClass = "bg-gray-box";
-      break;
-    case "Ecchi":
-    case "Harem":
-      colorClass = "bg-pink-box";
-      break;
-    case "Horror":
-    case "Mistero":
-      colorClass = "bg-white-box";
-      break;
-    case "Militari":
-    case "Storico":
-      colorClass = "bg-yellow-box";
-      break;
-    case "Romantico":
-    case "Sentimentale":
-      colorClass = "bg-purple-box";
-      break;
-    case "Sci-Fi":
-      colorClass = "bg-blue-box";
-      break;
-    case "Scolastico":
-      colorClass = "bg-red-box";
-      break;
-    case "Sport":
-      colorClass = "bg-light-blue-box";
-      break;
-    default:
-      colorClass = "bg-gray-box";
-  };
+  
+  // Recupera la classe colore
+  let colorClass =getColorClass(gen);
+
   label.innerHTML = `
-    <input type="checkbox" value="${gen}" class="genre-checkbox hidden-checkbox ${colorClass}"> 
+    <input type="checkbox" value="${gen}" class="genre-checkbox hidden-checkbox"> 
     <span class="custom-checkbox ${colorClass}">${gen}</span>
   `;
   genreListDiv.appendChild(label);
-  genreListDiv.appendChild(document.createElement("br"));
 });
+
+function getColorClass(gen) {
+  switch (gen) {
+    case "Azione":
+      return "bg-green-box";
+      break;
+    case "Avventura":
+      return "bg-brown-box";
+      break;
+    case "Commedia":
+      return "bg-gray-box";
+      break;
+    case "Ecchi":
+    case "Harem":
+      return "bg-pink-box";
+      break;
+    case "Horror":
+    case "Mistero":
+      return "bg-white-box";
+      break;
+    case "Militari":
+    case "Storico":
+      return "bg-yellow-box";
+      break;
+    case "Romantico":
+    case "Sentimentale":
+      return "bg-purple-box";
+      break;
+    case "Sci-Fi":
+      return "bg-blue-box";
+      break;
+    case "Scolastico":
+      return "bg-red-box";
+      break;
+    case "Sport":
+      return "bg-light-blue-box";
+      break;
+    default:
+      return "bg-gray-box";
+  };
+}
+  // label.innerHTML = `
+  //   <input type="checkbox" value="${gen}" class="genre-checkbox hidden-checkbox ${colorClass}"> 
+  //   <span class="custom-checkbox ${colorClass}">${gen}</span>
+  // `;
+
 
 function filterBySelectedGenres() {
   const selectedGenres = Array.from(document.querySelectorAll(".genre-checkbox:checked"))
