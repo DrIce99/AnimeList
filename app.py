@@ -25,19 +25,30 @@ def save_data(data):
 def home():
     return "Il server Flask è attivo! Prova /api/anime"
 
-# ROTTA 2: Quella che serve al tuo frontend
+# ROTTA 2: Quella che serve al frontend
 @app.route('/api/anime', methods=['GET'])
 def get_anime():
     data = load_data()
-    print(f"Caricati {len(data)} anime") # Lo vedrai nel terminale
+    print(f"Caricati {len(data)} anime")
     return jsonify(data)
+
+@app.route('/api/anime', methods=['POST'])
+def add_anime():
+    try:
+        data = load_data()
+        new_anime = request.json
+        data.append(new_anime)
+        save_data(data)
+        return jsonify({"status": "success"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/api/anime/<int:anime_id>', methods=['PUT'])
 def update_anime(anime_id):
     data = load_data()
     updated_anime = request.json
     
-    # Cerchiamo l'anime tramite l'indice (o ID se lo hai salvato nel JSON)
+    # Cerca l'anime tramite l'indice (o ID se è salvato nel JSON)
     if 0 <= anime_id < len(data):
         data[anime_id] = updated_anime
         save_data(data)
@@ -54,5 +65,5 @@ def delete_anime(anime_id):
     return jsonify({"status": "error"}), 404
 
 if __name__ == '__main__':
-    # debug=True riavvia il server da solo quando salvi il file
+    # debug=True riavvia il server da solo quando salva il file
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -11,6 +11,8 @@ const modalResults = document.getElementById('modalSearchResults');
 const editableContainer = document.getElementById('editableCardContainer');
 let animeInModifica = null;
 
+const addModal = document.getElementById('addModal');
+
 const listaAnime = []
 
 let addOnce = false
@@ -460,3 +462,183 @@ document.getElementById('downloadJson').addEventListener('click', () => {
   downloadAnchorNode.click();
   downloadAnchorNode.remove();
 });
+
+// Aggiunta anime
+let selectedGenresData = [];
+
+const soloNumeri = (e) => {
+  if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+    e.preventDefault();
+  }
+};
+document.getElementById('add-anno').addEventListener('keydown', soloNumeri);
+document.getElementById('add-ep').addEventListener('keydown', soloNumeri);
+
+const ratingInput = document.getElementById('add-rating');
+ratingInput.value = "/10";
+ratingInput.addEventListener('click', function() {
+    this.setSelectionRange(0, 0); // Posiziona il cursore all'inizio al click
+});
+
+const studioInput = document.getElementById('add-studio');
+const studioList = document.createElement('div');
+studioList.classList.add('search-dropdown'); // Usa la classe che avevamo per la ricerca
+studioInput.parentNode.appendChild(studioList);
+
+studioInput.addEventListener('input', (e) => {
+  const val = e.target.value.toLowerCase();
+  studioList.innerHTML = "";
+  if (!val) return;
+
+  // Estrae studi univoci dalla listaAnime
+  const studiPresenti = [...new Set(listaAnime.map(a => a.studio))];
+  const suggerimenti = studiPresenti.filter(s => s.toLowerCase().includes(val)).slice(0, 5);
+
+  suggerimenti.forEach(s => {
+    const div = document.createElement('div');
+    div.classList.add('search-item');
+    div.innerText = s;
+    div.onclick = () => {
+      studioInput.value = s;
+      studioList.innerHTML = "";
+    };
+    studioList.appendChild(div);
+  });
+});
+
+document.getElementById('btnSearchImg').addEventListener('click', () => {
+  const nome = document.getElementById('add-nome').value;
+  if (!nome) return alert("Inserisci prima il nome dell'anime!");
+  
+  // Apre Google Immagini filtrando per AnimeClick
+  const query = encodeURIComponent(`${nome} animeclick`);
+  window.open(`https://www.google.com{query}&tbm=isch`, '_blank');
+});
+
+document.getElementById('addAnime').addEventListener('click', () => {
+  addModal.style.display = 'flex';
+  bloccaScroll();
+});
+
+document.getElementById('closeAdd').addEventListener('click', () => {
+  addModal.style.display = 'none';
+  riabilitaScroll();
+});
+
+document.getElementById('confirmAdd').addEventListener('click', () => {
+  // 1. Raccogli i dati (Assicurati che gli ID degli input siano corretti!)
+  const nuovoAnime = {
+    nome: document.getElementById('add-nome').value,
+    nome_originale: document.getElementById('add-originale').value,
+    copertina: document.getElementById('add-img').value,
+    anno_uscita: document.getElementById('add-anno').value,
+    episodi: document.getElementById('add-ep').value,
+    studio: document.getElementById('add-studio').value,
+    rating_personale: document.getElementById('add-rating').value,
+    generi: selectedGenresData.map(g => ({ genere: g })), 
+    personaggi: [] // Per ora vuoti
+  };
+
+  if (!nuovoAnime.nome) {
+    alert("Inserisci almeno il nome dell'anime!");
+    return;
+  }
+
+  fetch('http://127.0.0.1:5000/api/anime', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(nuovoAnime)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Errore del server");
+    return res.json();
+  })
+  .then(response => {
+    if (response.status === "success") {
+      console.log("Anime aggiunto con successo!");
+
+      addModal.style.display = 'none';
+      riabilitaScroll(); 
+      
+      document.querySelectorAll('#addModal input').forEach(i => i.value = "");
+      selectedGenresData = [];
+
+      // Chiama la fetch iniziale per aggiornare la listaAnime
+      fetchInitialData(); 
+      alert("Sium! Anime aggiunto correttamente.");
+    }
+  })
+  .catch(err => {
+    console.error("Errore durante l'aggiunta:", err);
+    alert("Errore nel salvataggio. Controlla che il server Flask sia attivo!");
+  });
+  
+});
+
+// Funzione per aggiornare la vista dei Tag
+function renderGenreTags() {
+  const container = document.getElementById('selectedGenresContainer');
+  container.innerHTML = "";
+  
+  selectedGenresData.forEach(gen => {
+    const tag = document.createElement('div');
+    tag.className = 'genre-tag';
+    tag.innerHTML = `
+      ${gen} 
+      <span class="remove-btn" onclick="removeGenreTag('${gen}')">&times;</span>
+    `;
+    container.appendChild(tag);
+  });
+}
+
+// Funzione per rimuovere un genere
+window.removeGenreTag = function(gen) {
+  selectedGenresData = selectedGenresData.filter(item => item !== gen);
+  renderGenreTags();
+};
+
+// Funzione per aggiungere un genere
+window.addGenreTag = function(gen) {
+  if (!selectedGenresData.includes(gen)) {
+    selectedGenresData.push(gen);
+    renderGenreTags();
+  }
+};
+
+// Popola la lista dei generi disponibili (usa l'array genreList che hai già)
+function initGenreSelector() {
+  const availableList = document.getElementById('availableGenresList');
+  availableList.innerHTML = "";
+  
+  genreList.sort().forEach(gen => {
+    const item = document.createElement('div');
+    item.className = 'search-item';
+    item.innerText = gen;
+    item.onclick = () => addGenreTag(gen);
+    availableList.appendChild(item);
+  });
+}
+
+// Inizializza al caricamento della modale "Aggiungi"
+document.getElementById('addAnime').addEventListener('click', () => {
+  selectedGenresData = []; // Reset
+  renderGenreTags();
+  initGenreSelector();
+  addModal.style.display = 'flex';
+});
+
+// Modifica nella funzione di salvataggio (confirmAdd)
+// Cambia la parte dei generi così:
+const nuovoAnime = {
+  // ... altri campi ...
+  generi: selectedGenresData.map(g => ({ genere: g })), // Adattato al tuo formato JSON
+  personaggi: []
+};
+
+function bloccaScroll() {
+  document.body.style.overflow = 'hidden';
+}
+
+function riabilitaScroll() {
+  document.body.style.overflow = 'auto';
+}

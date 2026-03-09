@@ -45,6 +45,38 @@
       </button>
     </div>
 
+    <div id="addModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Aggiungi Nuovo Anime</h2>
+          <button class="close-modal" id="closeAdd">&times;</button>
+        </div>
+        <div class="container-card" style="border: 1px solid #8dfdff; padding: 20px; border-radius: 20px;">
+          <input type="text" id="add-nome" class="edit-input" placeholder="Titolo Anime">
+          <input type="text" id="add-originale" class="edit-input" placeholder="Titolo Originale">
+          <label>URL Copertina:</label>
+          <div class="image-input-group">
+            <input type="text" id="add-img" class="edit-input" placeholder="Incolla URL qui...">
+            <button id="btnSearchImg" class="save-btn" style="background: #8dfdff; color: #111;">Cerca</button>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="text" id="add-anno" class="edit-input" placeholder="Anno Uscita">
+            <input type="text" id="add-ep" class="edit-input" placeholder="N. Episodi">
+          </div>
+          <input type="text" id="add-studio" class="edit-input" placeholder="Studio di Animazione">
+          <input type="text" id="add-rating" class="edit-input" placeholder="Rating (es. 8/10)">
+          <label>Generi Selezionati:</label>
+          <div id="selectedGenresContainer" class="genres-container"></div>
+          <label>Seleziona Generi:</label>
+          <div class="search-dropdown" id="availableGenresList" style="display: block; position: static; max-height: 150px;"></div>
+          <p style="font-size: 12px; color: #8dfdff;">* I personaggi verranno inizializzati vuoti.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="confirmAdd" class="save-btn" style="background: #8dfdff;">Salva Anime</button>
+        </div>
+      </div>
+    </div>
+
     <div id="editModal" class="modal-overlay">
       <div class="modal-content">
         <button class="close-modal">&times;</button>
