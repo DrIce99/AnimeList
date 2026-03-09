@@ -1,0 +1,22 @@
+# --- Frontend (Vite/Node) ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vscode/
+.idea/
+
+# --- Backend (Python/Flask) ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+instance/
+
+# --- Sistema e Logs ---
+.DS_Store
+*.log
+Thumbs.db

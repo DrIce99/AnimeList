@@ -25,63 +25,39 @@ function normalizeText(text) {
     .replace(/ē/g, "ee"); // e lunga
 }
 
-fetch('./anime.json')
+fetch('http://127.0.0.1:5000/api/anime')
   .then((res) => res.json())
   .then((data) => {
-    elaborate(data);
-    updateAnimeCount(data.length);
-  });
+    // 1. SVUOTA L'ARRAY GLOBALE (Fondamentale!)
+    listaAnime.length = 0; 
+
+    // 2. POPOLA L'ARRAY CON I NUOVI DATI
+    data.forEach((anime, index) => {
+      // Usiamo l'indice originale del JSON come ID per Flask
+      anime.id = index; 
+      listaAnime.push(anime);
+    });
+
+    // 3. DISEGNA LA DASHBOARD
+    elaborate(listaAnime);
+    updateAnimeCount(listaAnime.length);
+  })
+  .catch(err => console.error("Errore fetch:", err));
 
 function elaborate(data) {
   // let temp;
   // temp.innerHTML = data.nome;
   // animeContainer.push(temp);
 
+  animeContainer.innerHTML = "";
+
   data.forEach((anime, i) => {
-    if (!addOnce) {
-      listaAnime.push(anime)
+    if (anime.id === undefined) {
+      anime.id = i;
     }
-    
+
     let color;
     let imgcolor;
-    // for (let i = 0; i < anime.generi.length; i++) {
-    //   if (anime.generi[i].genere == "Azione") {
-    //     color = "bg-green-box";
-    //     imgcolor = "bgimg-green-box";
-    //     break;
-    //   } else if (anime.generi[i].genere == "Sci-Fi") {
-    //     color = "bg-blue-box";
-    //     imgcolor = "bgimg-blue-box";
-    //     break;
-    //   } else if (anime.generi[i].genere == "Ecchi" || anime.generi[i].genere == "Harem") {
-    //     color = "bg-pink-box";
-    //     imgcolor = "bgimg-pink-box";
-    //     break;
-    //   } else if (anime.generi[i].genere == "Avventura") {
-    //     color = "bg-brown-box";
-    //     imgcolor = "bgimg-brown-box";
-    //     break;
-    //   } else if (anime.generi[i].genere == "Scolastico") {
-    //     color = "bg-red-box";
-    //     imgcolor = "bgimg-red-box";
-    //     break;
-    //   } else if (anime.generi[i].genere == "Horror" || anime.generi[i].genere == "Mistero") {
-    //     color = "bg-white-box";
-    //     imgcolor = "bgimg-white-box";
-    //     break;
-    //   } else if (anime.generi[i].genere == "Storico" || anime.generi[i].genere == "Guerra" || anime.generi[i].genere == "Militari") {
-    //     color = "bg-yellow-box";
-    //     imgcolor = "bgimg-yellow-box";
-    //     break;
-    //   } else if (anime.generi[i].genere == "Romantico" || anime.generi[i].genere == "Sentimentale") {
-    //     color = "bg-purple-box";
-    //     imgcolor = "bgimg-purple-box";
-    //     break;
-    //   } else {
-    //     color = "bg-gray-box";
-    //     imgcolor = "bgimg-gray-box";
-    //   }
-    // }
     let highestPriority = -1;
     let selectedGenre = "";
 
@@ -96,50 +72,21 @@ function elaborate(data) {
 
     // Ora assegna il colore in base al selectedGenre
     switch (selectedGenre) {
-      case "Azione":
-        color = "bg-green-box";
-        imgcolor = "bgimg-green-box";
-        break;
-      case "Sci-Fi":
-        color = "bg-blue-box";
-        imgcolor = "bgimg-blue-box";
-        break;
+      case "Azione": color = "bg-green-box"; imgcolor = "bgimg-green-box"; break;
+      case "Sci-Fi": color = "bg-blue-box"; imgcolor = "bgimg-blue-box"; break;
       case "Ecchi":
-      case "Harem":
-        color = "bg-pink-box";
-        imgcolor = "bgimg-pink-box";
-        break;
-      case "Avventura":
-        color = "bg-brown-box";
-        imgcolor = "bgimg-brown-box";
-        break;
-      case "Scolastico":
-        color = "bg-red-box";
-        imgcolor = "bgimg-red-box";
-        break;
+      case "Harem": color = "bg-pink-box"; imgcolor = "bgimg-pink-box"; break;
+      case "Avventura": color = "bg-brown-box"; imgcolor = "bgimg-brown-box"; break;
+      case "Scolastico": color = "bg-red-box"; imgcolor = "bgimg-red-box"; break;
       case "Horror":
-      case "Mistero":
-        color = "bg-white-box";
-        imgcolor = "bgimg-white-box";
-        break;
+      case "Mistero": color = "bg-white-box"; imgcolor = "bgimg-white-box"; break;
       case "Storico":
       case "Guerra":
-      case "Militari":
-        color = "bg-yellow-box";
-        imgcolor = "bgimg-yellow-box";
-        break;
+      case "Militari": color = "bg-yellow-box"; imgcolor = "bgimg-yellow-box"; break;
       case "Romantico":
-      case "Sentimentale":
-        color = "bg-purple-box";
-        imgcolor = "bgimg-purple-box";
-        break;
-      case "Sport":
-        color = "bg-light-blue-box";
-        imgcolor = "bgimg-light-blue-box";
-        break;
-      default:
-        color = "bg-gray-box";
-        imgcolor = "bgimg-gray-box";
+      case "Sentimentale": color = "bg-purple-box"; imgcolor = "bgimg-purple-box"; break;
+      case "Sport": color = "bg-light-blue-box"; imgcolor = "bgimg-light-blue-box"; break;
+      default: color = "bg-gray-box"; imgcolor = "bgimg-gray-box";
     }
     anime.id = i;
     console.log(data['id'])
@@ -147,14 +94,14 @@ function elaborate(data) {
     let genre = `<div class="card-description">`;
     anime.generi.forEach((genere, j) => {
       genre += genere.genere
-      if (j < (anime.generi.length - 1)){
+      if (j < (anime.generi.length - 1)) {
         genre += ", "
-      } 
+      }
     });
     genre += `</div>`;
     const rating = anime.rating_personale.split("/")[0];
     // console.log(genre);
-      temp.innerHTML = 
+    temp.innerHTML =
       `<div class="card" id="${i}">
         <div class="image invisible"><button class="draw ${imgcolor}"><img src="${anime.copertina}"></button>
           <div class="character-list-wrapper invisible">
@@ -185,7 +132,6 @@ function elaborate(data) {
       <br />`;
     animeContainer.appendChild(temp);
   });
-  addOnce = true
 }
 
 // ricerca
@@ -223,15 +169,15 @@ function applyFilters() {
   const nameInput = normalizeText(searchBar.value);
   const charInput = searchChar.value.toLowerCase();
   const selectedGenres = Array.from(document.querySelectorAll(".genre-checkbox:checked"))
-                              .map(cb => cb.value.toLowerCase());
+    .map(cb => cb.value.toLowerCase());
 
   const filtrati = listaAnime.filter(anime => {
     // 1. Filtro Nome
-    const matchNome = normalizeText(anime.nome).includes(nameInput) || 
-                      normalizeText(anime.nome_originale).includes(nameInput);
-    
+    const matchNome = normalizeText(anime.nome).includes(nameInput) ||
+      normalizeText(anime.nome_originale).includes(nameInput);
+
     // 2. Filtro Personaggi
-    const matchChar = charInput === "" || anime.personaggi.some(c => 
+    const matchChar = charInput === "" || anime.personaggi.some(c =>
       c.character.toLowerCase().includes(charInput)
     );
 
@@ -322,7 +268,7 @@ genreList.sort();
 let lastLetter = "";
 genreList.forEach(gen => {
   const currentLetter = gen.charAt(0).toUpperCase();
-  
+
   // Se la lettera cambia, aggiungi uno spazio maggiore o un separatore
   if (currentLetter !== lastLetter) {
     const spacer = document.createElement("div");
@@ -337,9 +283,9 @@ genreList.forEach(gen => {
 
   const label = document.createElement("label");
   label.classList.add("genre-label");
-  
+
   // Recupera la classe colore
-  let colorClass =getColorClass(gen);
+  let colorClass = getColorClass(gen);
 
   label.innerHTML = `
     <input type="checkbox" value="${gen}" class="genre-checkbox hidden-checkbox"> 
@@ -378,15 +324,15 @@ function getColorClass(gen) {
       return "bg-gray-box";
   };
 }
-  // label.innerHTML = `
-  //   <input type="checkbox" value="${gen}" class="genre-checkbox hidden-checkbox ${colorClass}"> 
-  //   <span class="custom-checkbox ${colorClass}">${gen}</span>
-  // `;
+// label.innerHTML = `
+//   <input type="checkbox" value="${gen}" class="genre-checkbox hidden-checkbox ${colorClass}"> 
+//   <span class="custom-checkbox ${colorClass}">${gen}</span>
+// `;
 
 
 function filterBySelectedGenres() {
   const selectedGenres = Array.from(document.querySelectorAll(".genre-checkbox:checked"))
-                              .map(cb => cb.value.toLowerCase());
+    .map(cb => cb.value.toLowerCase());
 
   const filtrati = listaAnime.filter(anime => {
     const animeGenres = anime.generi.map(g => g.genere.toLowerCase());
@@ -434,13 +380,13 @@ document.querySelector('.close-modal').addEventListener('click', () => {
 modalSearch.addEventListener('keyup', (e) => {
   const term = e.target.value.toLowerCase();
   if (term.length < 2) { modalResults.innerHTML = ""; return; }
-  
+
   const matches = listaAnime.filter(a => a.nome.toLowerCase().includes(term)).slice(0, 5);
   modalResults.innerHTML = matches.map(a => `<div class="search-item" onclick="caricaAnimeInModale(${a.id})">${a.nome}</div>`).join('');
 });
 
 // Funzione globale per caricare i dati (chiamata dal click sui risultati)
-window.caricaAnimeInModale = function(id) {
+window.caricaAnimeInModale = function (id) {
   const anime = listaAnime.find(a => a.id === id);
   animeInModifica = anime;
   modalResults.innerHTML = "";
@@ -479,15 +425,29 @@ window.caricaAnimeInModale = function(id) {
 document.getElementById('saveAnimeChanges').addEventListener('click', () => {
   if (!animeInModifica) return;
 
-  animeInModifica.nome = document.getElementById('edit-nome').value;
-  animeInModifica.copertina = document.getElementById('edit-img').value;
-  animeInModifica.anno_uscita = document.getElementById('edit-anno').value;
-  animeInModifica.episodi = document.getElementById('edit-ep').value;
-  animeInModifica.studio = document.getElementById('edit-studio').value;
-  animeInModifica.rating_personale = document.getElementById('edit-rating').value;
+  const updatedData = {
+    ...animeInModifica,
+    nome: document.getElementById('edit-nome').value,
+    copertina: document.getElementById('edit-img').value,
+    anno_uscita: document.getElementById('edit-anno').value,
+    episodi: document.getElementById('edit-ep').value,
+    studio: document.getElementById('edit-studio').value,
+    rating_personale: document.getElementById('edit-rating').value
+  };
 
-  alert("Modifiche salvate in memoria!");
-  elaborate(listaAnime); // Rinfresca la dashboard
+  // Invia al backend via PUT
+  fetch(`http://127.0.0.1{animeInModifica.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updatedData)
+  })
+    .then(res => res.json())
+    .then(response => {
+      if (response.status === "success") {
+        alert("JSON aggiornato correttamente sul server!");
+        location.reload(); // Ricarica per vedere le modifiche
+      }
+    });
 });
 
 // Download del file JSON finale
