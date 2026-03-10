@@ -45,16 +45,19 @@ def add_anime():
 
 @app.route('/api/anime/<int:anime_id>', methods=['PUT'])
 def update_anime(anime_id):
-    data = load_data()
-    updated_anime = request.json
+    try:
+        data = load_data()
+        updated_anime = request.json
+        
+        if 0 <= anime_id < len(data):
+            # Manteniamo l'ID originale se necessario, o sovrascriviamo tutto
+            data[anime_id] = updated_anime
+            save_data(data)
+            return jsonify({"status": "success"})
+        return jsonify({"status": "error", "message": "Anime non trovato"}), 404
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
     
-    # Cerca l'anime tramite l'indice (o ID se è salvato nel JSON)
-    if 0 <= anime_id < len(data):
-        data[anime_id] = updated_anime
-        save_data(data)
-        return jsonify({"status": "success"})
-    return jsonify({"status": "error"}), 404
-
 @app.route('/api/anime/<int:anime_id>', methods=['DELETE'])
 def delete_anime(anime_id):
     data = load_data()

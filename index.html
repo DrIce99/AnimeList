@@ -45,6 +45,7 @@
       </button>
     </div>
 
+    <!-- MODALE AGGIUNTA ANIME -->
     <div id="addModal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -77,26 +78,66 @@
       </div>
     </div>
 
-    <div id="editModal" class="modal-overlay">
+    <!-- MODALE MODIFICA ANIME -->
+    <div id="editModal" class="modal-overlay" style="display: none;">
       <div class="modal-content">
-        <button class="close-modal">&times;</button>
-        <h2>Modifica Anime</h2>
         
-        <!-- Ricerca interna alla modale -->
-        <div class="modal-search-box">
-          <input type="text" id="modalSearch" placeholder="Cerca l'anime da modificare...">
-          <div id="modalSearchResults" class="search-dropdown"></div>
+        <!-- Header -->
+        <div class="modal-header">
+          <h2>Modifica Anime</h2>
+          <button class="close-modal" id="closeEdit">&times;</button>
         </div>
 
-        <!-- Area dove apparirà la card modificabile -->
-        <div id="editableCardContainer">
-          <p style="color: #666; text-align: center;">Cerca un anime sopra per iniziare a modificarlo.</p>
-        </div>
+        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
 
-        <div class="modal-footer">
-          <button id="saveAnimeChanges" class="save-btn">Salva Modifiche</button>
-          <button id="downloadJson" class="download-btn">Scarica JSON Aggiornato</button>
+        <!-- Form di modifica -->
+        <div id="editFormContainer">
+          <div class="container-card" style="border: 1px solid #ff5fcb; padding: 20px; border-radius: 20px;">
+            
+            <label>Titolo:</label>
+            <input type="text" id="edit-nome" class="edit-input">
+            
+            <label>Titolo Originale:</label>
+            <input type="text" id="edit-originale" class="edit-input">
+            
+            <label>URL Copertina:</label>
+            <div class="image-input-group">
+              <input type="text" id="edit-img" class="edit-input">
+              <button id="btnSearchImgEdit" class="save-btn" style="background: #8dfdff; color: #111;">Cerca</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <label>Anno:</label>
+                <input type="text" id="edit-anno" class="edit-input">
+              </div>
+              <div>
+                <label>Episodi:</label>
+                <input type="text" id="edit-ep" class="edit-input">
+              </div>
+            </div>
+
+            <label>Studio:</label>
+            <input type="text" id="edit-studio" class="edit-input">
+
+            <label>Rating:</label>
+            <input type="text" id="edit-rating" class="edit-input">
+
+            <!-- Generi -->
+            <label>Generi Selezionati:</label>
+            <div id="editSelectedGenresContainer" class="genres-container"></div>
+            
+            <label>Aggiungi/Rimuovi Generi:</label>
+            <div class="search-dropdown" id="editAvailableGenresList" style="display: block; position: static; max-height: 120px;"></div>
+
+          </div>
+
+          <!-- Footer -->
+          <div class="modal-footer">
+            <button id="confirmUpdate" class="save-btn">Salva Modifiche Sium</button>
+          </div>
         </div>
+        
       </div>
     </div>
 
