@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&family=Bebas+Neue&family=Urbanist&display=swap');
 
+:root {
+  --theme-color: #ff5fcb;
+  --shadow-color: #8dfdff34;
+  --secondary-color: #8dfdff;
+  --rgb-color: 15, 255, 203;
+}
+
 .anime-card {
   font-family: 'Barlow Condensed';
 }
@@ -52,6 +59,8 @@
 body {
   background-color: black;
   font-family: 'Barlow Condensed';
+  height: 100%;
+  margin: 0;
 }
 
 .anime-container {
@@ -190,7 +199,7 @@ img {
 
 .container-card {
   position: relative;
-  border: 2px solid transparent;
+  border: 2px solid --theme-color;
   background: linear-gradient(71deg, #080509, #1a171c, #080509);
   background-clip: padding-box;
   border-radius: 45px;
@@ -198,6 +207,15 @@ img {
   img {
     margin-bottom: 32px;
   }
+}
+
+.container-card::before {
+  border: 2px solid --theme-color;
+  content: "";
+  position: absolute;
+  inset: -2px;   /* spessore bordo */
+  border-radius: 22px;
+  z-index: -1;
 }
 
 .bg-green-box,
@@ -491,7 +509,7 @@ button::before, button::after {
 }
 
 .sidebar input[type="text"]:focus {
-  border-color: #ff5fcb; /* Colore della tua scrollbar */
+  border-color: var(--theme-color); /* Colore della tua scrollbar */
   box-shadow: 0 0 10px rgba(255, 95, 203, 0.3);
 }
 
@@ -544,9 +562,14 @@ button::before, button::after {
 }
 
 .action-item {
-  background: #1a171c;
+  margin: 0;
+  height: auto;
+  background: transparent;
+  border: none;
+  position: relative;
+  display: inline-block;
+
   color: white;
-  border: 1px solid #ff5fcb;
   padding: 12px 20px;
   border-radius: 12px;
   font-family: 'Barlow Condensed';
@@ -559,6 +582,443 @@ button::before, button::after {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.action-item {
+  --border-right: 6px;
+  --text-stroke-color: rgba(255,255,255,0.6);
+  --animation-color: var(--theme-color);
+  --fs-size: 2em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  /* font-family: "Arial"; */
+  position: relative;
+  text-transform: uppercase;
+  display: inline-flex;
+  color: transparent;
+  align-items: center;
+  justify-content: center;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+
+.hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  /* content: attr(data-text); */
+  color: var(--animation-color);
+  inset: 0;
+  border-left: var(--border-right) solid var(--animation-color);
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  clip-path: inset(0 100% 0 0); /* inizialmente nascosto */
+
+  transition: clip-path 0.5s;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+}
+/* hover */
+.action-item:hover .hover-text {
+  clip-path: inset(0 0 0 0); /* rivela il testo */
+  filter: drop-shadow(0 0 23px var(--animation-color));
+}
+
+/* .actual-text, */
+.hover-text {
+  position: absolute;
+  inset: 0;
+  margin-left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Container 1 */
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  --c: 7px;
+  background-color: #000;
+  background-image: radial-gradient(
+      circle at 50% 50%,
+      #0000 1.5px,
+      #000 0 var(--c),
+      #0000 var(--c)
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      #0000 1.5px,
+      #000 0 var(--c),
+      #0000 var(--c)
+    ),
+    radial-gradient(circle at 50% 50%, #f00, #f000 60%),
+    radial-gradient(circle at 50% 50%, #ff0, #ff00 60%),
+    radial-gradient(circle at 50% 50%, #0f0, #0f00 60%),
+    radial-gradient(ellipse at 50% 50%, #00f, #00f0 60%);
+  background-size:
+    12px 20.7846097px,
+    12px 20.7846097px,
+    200% 200%,
+    200% 200%,
+    200% 200%,
+    200% 20.7846097px;
+  --p: 0px 0px, 6px 10.39230485px;
+  background-position:
+    var(--p),
+    0% 0%,
+    0% 0%,
+    0% 0px;
+  animation:
+    wee 40s linear infinite,
+    filt 6s linear infinite;
+}
+
+@keyframes filt {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes wee {
+  0% {
+    background-position:
+      var(--p),
+      800% 400%,
+      1000% -400%,
+      -1200% -600%,
+      400% 41.5692194px;
+  }
+  to {
+    background-position:
+      var(--p),
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%;
+  }
+}
+
+/* Container 2 */
+
+.container2::after {
+  content: "";
+  position: absolute;
+  margin: 0;
+  z-index: 0;
+  backdrop-filter: blur(1em) brightness(6);
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    #0000 0,
+    #0000 2px,
+    hsl(0 0 4%) 2px
+  );
+  background-size: 8px 8px;
+}
+
+.container2 {
+  position: relative;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  --c: #09f;
+  background-color: #000;
+  background-image: radial-gradient(4px 100px at 0px 235px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 235px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 117.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 252px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 252px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 126px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 150px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 150px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 75px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 253px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 253px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 126.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 204px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 204px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 102px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 134px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 134px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 67px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 179px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 179px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 89.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 299px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 299px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 149.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 215px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 215px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 107.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 281px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 281px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 140.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 158px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 158px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 79px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 210px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 210px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 105px, var(--c) 100%, #0000 150%);
+  background-size:
+    300px 235px,
+    300px 235px,
+    300px 235px,
+    300px 252px,
+    300px 252px,
+    300px 252px,
+    300px 150px,
+    300px 150px,
+    300px 150px,
+    300px 253px,
+    300px 253px,
+    300px 253px,
+    300px 204px,
+    300px 204px,
+    300px 204px,
+    300px 134px,
+    300px 134px,
+    300px 134px,
+    300px 179px,
+    300px 179px,
+    300px 179px,
+    300px 299px,
+    300px 299px,
+    300px 299px,
+    300px 215px,
+    300px 215px,
+    300px 215px,
+    300px 281px,
+    300px 281px,
+    300px 281px,
+    300px 158px,
+    300px 158px,
+    300px 158px,
+    300px 210px,
+    300px 210px,
+    300px 210px;
+  animation: hi 150s linear infinite;
+}
+
+@keyframes hi {
+  0% {
+    background-position:
+      0px 220px,
+      3px 220px,
+      151.5px 337.5px,
+      25px 24px,
+      28px 24px,
+      176.5px 150px,
+      50px 16px,
+      53px 16px,
+      201.5px 91px,
+      75px 224px,
+      78px 224px,
+      226.5px 350.5px,
+      100px 19px,
+      103px 19px,
+      251.5px 121px,
+      125px 120px,
+      128px 120px,
+      276.5px 187px,
+      150px 31px,
+      153px 31px,
+      301.5px 120.5px,
+      175px 235px,
+      178px 235px,
+      326.5px 384.5px,
+      200px 121px,
+      203px 121px,
+      351.5px 228.5px,
+      225px 224px,
+      228px 224px,
+      376.5px 364.5px,
+      250px 26px,
+      253px 26px,
+      401.5px 105px,
+      275px 75px,
+      278px 75px,
+      426.5px 180px;
+  }
+
+  to {
+    background-position:
+      0px 6800px,
+      3px 6800px,
+      151.5px 6917.5px,
+      25px 13632px,
+      28px 13632px,
+      176.5px 13758px,
+      50px 5416px,
+      53px 5416px,
+      201.5px 5491px,
+      75px 17175px,
+      78px 17175px,
+      226.5px 17301.5px,
+      100px 5119px,
+      103px 5119px,
+      251.5px 5221px,
+      125px 8428px,
+      128px 8428px,
+      276.5px 8495px,
+      150px 9876px,
+      153px 9876px,
+      301.5px 9965.5px,
+      175px 13391px,
+      178px 13391px,
+      326.5px 13540.5px,
+      200px 14741px,
+      203px 14741px,
+      351.5px 14848.5px,
+      225px 18770px,
+      228px 18770px,
+      376.5px 18910.5px,
+      250px 5082px,
+      253px 5082px,
+      401.5px 5161px,
+      275px 6375px,
+      278px 6375px,
+      426.5px 6480px;
+  }
+}
+
+.container.no-animated-bg {
+  display: none;
+}
+
+.container2.no-animated-bg {
+  display: none;
+}
+
+.sidebar-label {
+  margin-left: 40px;
+}
+.colore-tema {
+  margin-left: 65px;
+}
+
+.settings {
+  margin-bottom: 10px;
+}
+
+/* From Uiverse.io by Danishrehman786 */ 
+.cyan-radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  max-width: 300px;
+}
+
+.cyan-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cyan-radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cyan-selector {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1.5px solid var(--theme-color);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow:
+    inset 0 0 1rem rgba(var(--theme-color), 0.2),
+    0 0 1rem rgba(var(--theme-color), 0.3);
+  background: rgba(5, 10, 20, 0.7);
+}
+
+.cyan-selector::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--theme-color), var(--secondary-color));
+  box-shadow: 0 0 1rem rgba(var(--theme-color), 0.8);
+  transition: transform 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  opacity: 0;
+}
+
+.cyan-glow {
+  position: absolute;
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--theme-color), 0.3), transparent 70%);
+  filter: blur(0.5rem);
+  opacity: 0;
+  /* transition: opacity 0.3s ease; */
+  z-index: -1;
+}
+
+.cyan-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #c0c0ff;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 0.5rem rgba(var(--theme-color), 0.5);
+}
+
+.cyan-option:hover .cyan-selector {
+  transform: scale(1.1);
+  box-shadow:
+    inset 0 0 1.5rem rgba(var(--theme-color), 0.3),
+    0 0 1.5rem rgba(var(--theme-color), 0.5);
+}
+
+.cyan-option:hover .cyan-label {
+  color: var(--theme-color);
+  text-shadow: 0 0 1rem rgba(var(--theme-color), 0.8);
+}
+
+.cyan-option:hover .cyan-glow {
+  opacity: 0.5;
+}
+
+.cyan-radio-input:checked + .cyan-selector::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.cyan-radio-input:checked ~ .cyan-label {
+  color: var(--theme-color);
+  text-shadow: 0 0 0.5rem rgba(var(--theme-color), 0.8);
+}
+
+.cyan-radio-input:checked ~ .cyan-glow {
+  opacity: 0.7;
+}
+
+.cyan-option:active .cyan-selector {
+  transform: scale(0.95);
 }
 
 /* Quando il menu è aperto */
@@ -585,14 +1045,14 @@ button::before, button::after {
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(135deg, #ff5fcb, #8dfdff);
+  background: linear-gradient(135deg, var(--theme-color), var(--secondary-color));
   border: none;
   border-radius: 18px;
   color: #111;
   font-size: 32px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(255, 95, 203, 0.6);
+  box-shadow: 0 0 20px var(--theme-color);
   transition: transform 0.3s ease;
   z-index: 2001;
   transform: skew(0deg);
@@ -603,7 +1063,7 @@ button::before, button::after {
 
 .main-action-btn.active {
   transform: skewY(15deg);
-  background: #ff5fcb; /* Cambia colore quando aperto */
+  background: var(--theme-color); /* Cambia colore quando aperto */
 }
 
 .main-action-btn svg {
@@ -636,14 +1096,14 @@ button::before, button::after {
   width: 90%;
   max-width: 800px;
   max-height: 90vh;
-  border: 2px solid #ff5fcb;
+  border: 2px solid var(--theme-color);
   border-radius: 30px;
   padding: 30px;
   padding-top: 20px;
   padding-bottom: 40px;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 0 30px rgba(255, 95, 203, 0.3);
+  box-shadow: 0 0 30px var(--theme-color);
 
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
@@ -669,7 +1129,7 @@ button::before, button::after {
   position: static;
   background: none;
   border: none;
-  color: #ff5fcb;
+  color: var(--theme-color);
   font-size: 32px;
   line-height: 1;
   cursor: pointer;
@@ -679,7 +1139,7 @@ button::before, button::after {
 
 .close-modal:hover {
   transform: scale(1.2) rotate(90deg); /* Effetto rotazione sium */   /* <- Vorrei precisare che questo commento è stato scritto dall'IA */
-  color: #8dfdff;
+  color: var(--secondary-color);
 }
 
 .search-dropdown {
@@ -704,7 +1164,7 @@ button::before, button::after {
 /* Input editabili dentro la card */
 .edit-input {
   background: rgba(255,255,255,0.05);
-  border: 1px dashed #ff5fcb;
+  border: 1px dashed var(--theme-color);
   color: white;
   width: 100%;
   font-family: inherit;
@@ -720,14 +1180,14 @@ button::before, button::after {
   margin: 10px;
 }
 
-.save-btn { background: #ff5fcb; border: none; color: black; font-weight: bold; }
+.save-btn { background: var(--theme-color); border: none; color: black; font-weight: bold; }
 
 .close-modal:hover {
   transform: scale(1.2);
 }
 
 .modal-content h2 {
-  color: #ff5fcb; /* Rosa neon per coerenza */
+  color: var(--theme-color); /* Rosa neon per coerenza */
   font-size: larger;
   font-weight: 900;
   letter-spacing: 2px;
@@ -736,7 +1196,7 @@ button::before, button::after {
 }
 
 .modal-content label {
-  color: #8dfdff; /* Azzurro neon per le etichette */
+  color: var(--secondary-color); /* Azzurro neon per le etichette */
   display: block;
   margin-top: 10px;
   font-size: 14px;
@@ -758,18 +1218,18 @@ button::before, button::after {
 }
 
 /* Hover Pulsanti Action Menu */
-.action-item:hover {
-  background: #ff5fcb;
+/* .action-item:hover {
+  background: var(--theme-color);
   color: #111;
-  box-shadow: 0 0 15px #ff5fcb;
-  transform: scale(1.05) translateY(-5px); /* Leggera salita extra */
-  border-color: #8dfdff;
-}
+  box-shadow: 0 0 15px var(--theme-color);
+  transform: scale(1.05) translateY(-5px); /* Leggera salita extra 
+  border-color: var(--secondary-color);
+} */
 
 /* Risultati Elenco Studi (Dropdown) */
 .search-dropdown {
   background: #1a171c;
-  border: 1px solid #ff5fcb;
+  border: 1px solid var(--theme-color);
   color: white; /* Testo visibile */
   z-index: 100;
 }
@@ -781,7 +1241,7 @@ button::before, button::after {
 }
 
 .search-item:hover {
-  background: #ff5fcb;
+  background: var(--theme-color);
   color: #111;
 }
 
@@ -798,7 +1258,7 @@ button::before, button::after {
 }
 
 .genre-tag {
-  background: #ff5fcb;
+  background: var(--theme-color);
   color: #111;
   padding: 4px 10px;
   border-radius: 20px;
@@ -903,10 +1363,10 @@ button::before, button::after {
   border-radius: 12px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #ff5fcb, #8dfdff);
+  background: linear-gradient(135deg, var(--theme-color), var(--secondary-color));
   border-radius: 12px;
   border: 2px solid #302b40;
-  box-shadow: 0 0 10px #ff5fcb, 0 0 15px #8dfdff;
+  box-shadow: 0 0 10px var(--theme-color), 0 0 15px var(--secondary-color);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #ffa6ec, #c1feff);
@@ -915,5 +1375,359 @@ button::before, button::after {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #ff5fcb #241f31;
+  scrollbar-color: var(--theme-color) #241f31;
+}
+
+/* From Uiverse.io by Nawsome */ 
+.socket {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  top: 50%;
+  margin-top: -100px;
+}
+
+.hex-brick {
+  background: #000000;
+  width: 30px;
+  height: 17px;
+  position: absolute;
+  top: 5px;
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.h2 {
+  transform: rotate(60deg);
+  -webkit-transform: rotate(60deg);
+}
+
+.h3 {
+  transform: rotate(-60deg);
+  -webkit-transform: rotate(-60deg);
+}
+
+.gel {
+  height: 30px;
+  width: 30px;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.center-gel {
+  margin-left: -15px;
+  margin-top: -15px;
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.c1 {
+  margin-left: -47px;
+  margin-top: -15px;
+}
+
+.c2 {
+  margin-left: -31px;
+  margin-top: -43px;
+}
+
+.c3 {
+  margin-left: 1px;
+  margin-top: -43px;
+}
+
+.c4 {
+  margin-left: 17px;
+  margin-top: -15px;
+}
+
+.c5 {
+  margin-left: -31px;
+  margin-top: 13px;
+}
+
+.c6 {
+  margin-left: 1px;
+  margin-top: 13px;
+}
+
+.c7 {
+  margin-left: -63px;
+  margin-top: -43px;
+}
+
+.c8 {
+  margin-left: 33px;
+  margin-top: -43px;
+}
+
+.c9 {
+  margin-left: -15px;
+  margin-top: 41px;
+}
+
+.c10 {
+  margin-left: -63px;
+  margin-top: 13px;
+}
+
+.c11 {
+  margin-left: 33px;
+  margin-top: 13px;
+}
+
+.c12 {
+  margin-left: -15px;
+  margin-top: -71px;
+}
+
+.c13 {
+  margin-left: -47px;
+  margin-top: -71px;
+}
+
+.c14 {
+  margin-left: 17px;
+  margin-top: -71px;
+}
+
+.c15 {
+  margin-left: -47px;
+  margin-top: 41px;
+}
+
+.c16 {
+  margin-left: 17px;
+  margin-top: 41px;
+}
+
+.c17 {
+  margin-left: -79px;
+  margin-top: -15px;
+}
+
+.c18 {
+  margin-left: 49px;
+  margin-top: -15px;
+}
+
+.c19 {
+  margin-left: -63px;
+  margin-top: -99px;
+}
+
+.c20 {
+  margin-left: 33px;
+  margin-top: -99px;
+}
+
+.c21 {
+  margin-left: 1px;
+  margin-top: -99px;
+}
+
+.c22 {
+  margin-left: -31px;
+  margin-top: -99px;
+}
+
+.c23 {
+  margin-left: -63px;
+  margin-top: 69px;
+}
+
+.c24 {
+  margin-left: 33px;
+  margin-top: 69px;
+}
+
+.c25 {
+  margin-left: 1px;
+  margin-top: 69px;
+}
+
+.c26 {
+  margin-left: -31px;
+  margin-top: 69px;
+}
+
+.c27 {
+  margin-left: -79px;
+  margin-top: -15px;
+}
+
+.c28 {
+  margin-left: -95px;
+  margin-top: -43px;
+}
+
+.c29 {
+  margin-left: -95px;
+  margin-top: 13px;
+}
+
+.c30 {
+  margin-left: 49px;
+  margin-top: 41px;
+}
+
+.c31 {
+  margin-left: -79px;
+  margin-top: -71px;
+}
+
+.c32 {
+  margin-left: -111px;
+  margin-top: -15px;
+}
+
+.c33 {
+  margin-left: 65px;
+  margin-top: -43px;
+}
+
+.c34 {
+  margin-left: 65px;
+  margin-top: 13px;
+}
+
+.c35 {
+  margin-left: -79px;
+  margin-top: 41px;
+}
+
+.c36 {
+  margin-left: 49px;
+  margin-top: -71px;
+}
+
+.c37 {
+  margin-left: 81px;
+  margin-top: -15px;
+}
+
+.r1 {
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .2s;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .2s;
+}
+
+.r2 {
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .4s;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .4s;
+}
+
+.r3 {
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .6s;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .6s;
+}
+
+.r1 > .hex-brick {
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .2s;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .2s;
+}
+
+.r2 > .hex-brick {
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .4s;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .4s;
+}
+
+.r3 > .hex-brick {
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .6s;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .6s;
+}
+
+@keyframes pulse00 {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.01);
+    transform: scale(0.01);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes fade00 {
+  0% {
+    background: #252525;
+  }
+
+  50% {
+    background: #000000;
+  }
+
+  100% {
+    background: #353535;
+  }
+}
+
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #000; /* sfondo scuro del loader */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* sopra tutto */
+  transition: opacity 0.5s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  pointer-events: none;
 }

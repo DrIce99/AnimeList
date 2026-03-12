@@ -16,6 +16,16 @@ const listaAnime = []
 
 let addOnce = false
 
+const colorPicker = document.getElementById("themeColor");
+const saved = localStorage.getItem('selectedContainer') || 'none';
+document.querySelector(`input[name="mainContainer"][value="${saved}"]`).checked = true;
+document.querySelector(`input[name="mainContainer"][value="${saved}"]`).dispatchEvent(new Event('change'));
+
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden');
+});
+
 function normalizeText(text) {
   return text
     .toLowerCase()
@@ -660,3 +670,54 @@ document.getElementById("confirmUpdate").addEventListener("click", async () => {
   }
 
 });
+
+function loadSettings() {
+
+  const savedColor = localStorage.getItem("themeColor");
+  const bgEnabled = localStorage.getItem("animatedBg");
+
+  if (savedColor) {
+    document.documentElement.style.setProperty("--theme-color", savedColor);
+    colorPicker.value = savedColor;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('input[name="mainContainer"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      const value = e.target.value;
+      const main = document.querySelector('.main-content');
+      if (!main) return;
+
+      main.classList.remove('container', 'container2');
+
+      if (value === '1') {
+        main.classList.remove('no-animated-bg');
+        main.classList.add('container');
+      } 
+      if (value === '2') {
+        main.classList.remove('no-animated-bg');
+        main.classList.add('container2');
+      }
+      if (value === 'none') main.classList.add('no-animated-bg');
+
+      localStorage.setItem('selectedContainer', value);
+    });
+  });
+
+  // ripristina container salvato
+  const saved = localStorage.getItem('selectedContainer') || 'none';
+  const savedRadio = document.querySelector(`input[name="mainContainer"][value="${saved}"]`);
+  if (savedRadio) savedRadio.checked = true;
+  if (savedRadio) savedRadio.dispatchEvent(new Event('change'));
+});
+colorPicker.addEventListener("input", () => {
+
+  const color = colorPicker.value;
+
+  document.documentElement.style.setProperty("--theme-color", color);
+  localStorage.setItem("themeColor", color);
+
+});
+
+loadSettings();
