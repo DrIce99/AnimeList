@@ -3899,26 +3899,21 @@
   {
     "nome": "My Happy Marriage (Il Mio Matrimonio Felice)",
     "nome_originale": "Watashi no Shiawase na Kekkon",
+    "copertina": "https://www.animeclick.it/immagini/anime/My_Happy_Marriage/cover/My_Happy_Marriage-cover-thumb.jpg",
+    "anno_uscita": "",
+    "episodi": "",
     "studio": "",
-    "anno_uscita": 0,
-    "episodi": 0,
+    "rating_personale": "4.25/10",
     "generi": [
       {
         "genere": ""
       }
     ],
-    "copertina": "https://www.animeclick.it/immagini/anime/My_Happy_Marriage/cover/My_Happy_Marriage-cover-thumb.jpg",
     "personaggi": [
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 2,
-      "mese": 10,
-      "anno": 2023
-    },
-    "rating_personale": "3/10"
+    ]
   },
   {
     "nome": "My Hero Academia",
@@ -5573,26 +5568,21 @@
   {
     "nome": "The Dungeon of Black Company",
     "nome_originale": "meikyuu Black Company",
+    "copertina": "https://www.animeclick.it/immagini/anime/Meikyuu_Black_Company/cover/Meikyuu_Black_Company-cover-thumb.jpg",
+    "anno_uscita": "",
+    "episodi": "",
     "studio": "",
-    "anno_uscita": 0,
-    "episodi": 0,
+    "rating_personale": "6.25/10 (mi ha fatto ridere)",
     "generi": [
       {
         "genere": ""
       }
     ],
-    "copertina": "https://www.animeclick.it/immagini/anime/Meikyuu_Black_Company/cover/Meikyuu_Black_Company-cover-thumb.jpg",
     "personaggi": [
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 0,
-      "mese": 0,
-      "anno": 0
-    },
-    "rating_personale": "6/10 (mi ha fatto ridere)"
+    ]
   },
   {
     "nome": "The Eminence in Shadow",
@@ -6941,9 +6931,11 @@
   {
     "nome": "Zom 100: Bucket List of the Dead",
     "nome_originale": "Zom 100: Zombie ni Naru made ni Shitai 100 no Koto",
+    "copertina": "https://www.animeclick.it/immagini/anime/Zombie_100/cover/Zombie_100-cover-thumb.jpg",
+    "anno_uscita": "2023",
+    "episodi": "12",
     "studio": "BUG FILMS",
-    "anno_uscita": 2023,
-    "episodi": 12,
+    "rating_personale": "7.75/10",
     "generi": [
       {
         "genere": "Azione"
@@ -6964,18 +6956,11 @@
         "genere": "Sopravvivenza"
       }
     ],
-    "copertina": "https://www.animeclick.it/immagini/anime/Zombie_100/cover/Zombie_100-cover-thumb.jpg",
     "personaggi": [
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 13,
-      "mese": 2,
-      "anno": 2024
-    },
-    "rating_personale": "8/10"
+    ]
   },
   {
     "nome": "The Ancient Magus' Bride",
@@ -10388,9 +10373,11 @@
   {
     "nome": "86 Eighty-Six",
     "nome_originale": "",
+    "copertina": "",
+    "anno_uscita": "",
+    "episodi": "",
     "studio": "",
-    "anno_uscita": 0,
-    "episodi": 0,
+    "rating_personale": "7.75/10",
     "generi": [
       {
         "genere": ""
@@ -10405,7 +10392,6 @@
         "genere": ""
       }
     ],
-    "copertina": "",
     "personaggi": [
       {
         "character": ""
@@ -10434,13 +10420,7 @@
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 31,
-      "mese": 3,
-      "anno": 2025
-    },
-    "rating_personale": "7.5/10"
+    ]
   },
   {
     "nome": "K: Project",
@@ -10899,14 +10879,24 @@
     "rating_personale": "6.75/10"
   },
   {
-    "nome": "Devil May Cry",
-    "nome_originale": "",
-    "copertina": "",
-    "anno_uscita": "",
-    "episodi": "",
-    "studio": "",
+    "nome": "Devil May Cry (2025)",
+    "nome_originale": "Devil May Cry (2025)",
+    "copertina": "https://www.animeclick.it/immagini/anime/Devil_May_Cry_-_Shankar/cover/Devil_May_Cry_-_Shankar-cover-thumb.jpg",
+    "anno_uscita": "2025",
+    "episodi": "8",
+    "studio": "Studio Mir",
     "rating_personale": "7/10",
-    "generi": [],
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Soprannaturale"
+      }
+    ],
     "personaggi": [
       {
         "character": ""
@@ -11233,6 +11223,27 @@
       },
       {
         "genere": "Magia"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "I Parry Everything: What Do You Mean I'm the Strongest? I'm Not Even an Adventurer Yet!",
+    "nome_originale": "Ore wa Subete o \"Parry\" Suru: Gyaku Kanchigai no Sekai Saikyō wa Bōken-sha ni Naritai",
+    "copertina": "https://www.animeclick.it/immagini/anime/Ore_wa_Subete_o_Parry_Suru_Gyaku_Kanchigai_no_Sekai_Saikyou_wa_Boukensha_ni_Naritai/cover/Ore_wa_Subete_o_Parry_Suru_Gyaku_Kanchigai_no_Sekai_Saikyou_wa_Boukensha_ni_Naritai-cover-thumb.jpg",
+    "anno_uscita": "2024",
+    "episodi": "12",
+    "studio": "OLM",
+    "rating_personale": "6.5/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Fantasy"
       }
     ],
     "personaggi": []

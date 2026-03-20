@@ -21,6 +21,8 @@ const saved = localStorage.getItem('selectedContainer') || 'none';
 document.querySelector(`input[name="mainContainer"][value="${saved}"]`).checked = true;
 document.querySelector(`input[name="mainContainer"][value="${saved}"]`).dispatchEvent(new Event('change'));
 
+document.getElementById("sortRating").addEventListener("change", applyFilters);
+
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
     loader.classList.add('hidden');
@@ -184,6 +186,9 @@ function applyFilters() {
   const selectedGenres = Array.from(document.querySelectorAll(".genre-checkbox:checked"))
     .map(cb => cb.value.toLowerCase());
 
+    
+  const sortType = document.getElementById("sortRating").value;
+
   const filtrati = listaAnime.filter(anime => {
     // 1. Filtro Nome
     const matchNome = normalizeText(anime.nome).includes(nameInput) ||
@@ -198,9 +203,25 @@ function applyFilters() {
     const animeGenres = anime.generi.map(g => g.genere.toLowerCase());
     const matchGenres = selectedGenres.every(gen => animeGenres.includes(gen));
 
+    
     return matchNome && matchChar && matchGenres;
   });
+  
+  if (sortType) {
+    filtrati.sort((a, b) => {
 
+      const ratingA = parseFloat((a.rating_personale || "0").split("/")[0]);
+      const ratingB = parseFloat((b.rating_personale || "0").split("/")[0]);
+
+      if (sortType === "desc") {
+        return ratingB - ratingA; // migliori prima
+      } else {
+        return ratingA - ratingB; // peggiori prima
+      }
+
+    });
+  }
+  
   animeContainer.innerHTML = "";
   elaborate(filtrati);
   updateAnimeCount(filtrati.length);
@@ -582,6 +603,7 @@ window.apriModifica = function(index) {
   editSelectedGenres = (anime.generi || []).map(g => g.genere);
 
   renderEditGenreTags();
+  renderAvailableGenres();
 }
 
 function renderEditGenreTags() {
@@ -719,5 +741,42 @@ colorPicker.addEventListener("input", () => {
   localStorage.setItem("themeColor", color);
 
 });
+
+function renderAvailableGenres() {
+
+  const container = document.getElementById("editAvailableGenresList");
+  container.innerHTML = "";
+
+  genreList.forEach(gen => {
+
+    const item = document.createElement("div");
+    item.className = "genre-item";
+    item.textContent = gen;
+
+    // evidenzia se già selezionato
+    if (editSelectedGenres.includes(gen)) {
+      item.classList.add("selected");
+    }
+
+    item.addEventListener("click", () => {
+
+      if (editSelectedGenres.includes(gen)) {
+        // rimuovi
+        editSelectedGenres = editSelectedGenres.filter(g => g !== gen);
+      } else {
+        // aggiungi
+        editSelectedGenres.push(gen);
+      }
+
+      renderEditGenreTags();
+      renderAvailableGenres();
+
+    });
+
+    container.appendChild(item);
+
+  });
+
+}
 
 loadSettings();
