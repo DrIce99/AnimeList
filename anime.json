@@ -2,9 +2,11 @@
   {
     "nome": "7 Seeds",
     "nome_originale": "7SEEDS",
+    "copertina": "https://www.animeclick.it/immagini/anime/Seven_Seeds/cover/Seven_Seeds-cover-thumb.jpg",
+    "anno_uscita": "2019",
+    "episodi": "24",
     "studio": "GONZO",
-    "anno_uscita": 2019,
-    "episodi": 24,
+    "rating_personale": "4/10",
     "generi": [
       {
         "genere": "Avventura"
@@ -34,18 +36,11 @@
         "genere": "Shoujo"
       }
     ],
-    "copertina": "https://www.animeclick.it/immagini/anime/Seven_Seeds/cover/Seven_Seeds-cover-thumb.jpg",
     "personaggi": [
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 0,
-      "mese": 0,
-      "anno": 0
-    },
-    "rating_personale": "4/10"
+    ]
   },
   {
     "nome": "A Certain Magical Index",
@@ -149,9 +144,11 @@
   {
     "nome": "Accel World",
     "nome_originale": "Accel World",
+    "copertina": "https://www.animeclick.it/immagini/anime/Accel_World/cover/Accel_World-cover-thumb.jpg",
+    "anno_uscita": "2012",
+    "episodi": "24",
     "studio": "Sunrise",
-    "anno_uscita": 2012,
-    "episodi": 24,
+    "rating_personale": "4.5/10",
     "generi": [
       {
         "genere": "Azione"
@@ -167,20 +164,16 @@
       },
       {
         "genere": "Scolastico"
+      },
+      {
+        "genere": "Mecha"
       }
     ],
-    "copertina": "https://www.animeclick.it/immagini/anime/Accel_World/cover/Accel_World-cover-thumb.jpg",
     "personaggi": [
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 0,
-      "mese": 0,
-      "anno": 0
-    },
-    "rating_personale": "4.5/10"
+    ]
   },
   {
     "nome": "Aesthetica of a Rogue Hero",
@@ -1532,26 +1525,21 @@
   {
     "nome": "Darling in the FranXX",
     "nome_originale": "DARLING in the FRANXX",
+    "copertina": "https://www.animeclick.it/immagini/anime/DARLING_in_the_FRANXX/cover/DARLING_in_the_FRANXX-cover-thumb.jpg",
+    "anno_uscita": "",
+    "episodi": "",
     "studio": "",
-    "anno_uscita": 0,
-    "episodi": 0,
+    "rating_personale": "6.75/10",
     "generi": [
       {
-        "genere": ""
+        "genere": "Mecha"
       }
     ],
-    "copertina": "https://www.animeclick.it/immagini/anime/DARLING_in_the_FRANXX/cover/DARLING_in_the_FRANXX-cover-thumb.jpg",
     "personaggi": [
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 0,
-      "mese": 0,
-      "anno": 0
-    },
-    "rating_personale": "6.75/10"
+    ]
   },
   {
     "nome": "Darwin's Game",
@@ -3916,30 +3904,6 @@
     ]
   },
   {
-    "nome": "My Hero Academia",
-    "nome_originale": "Boku no Hero Academia",
-    "studio": "",
-    "anno_uscita": 0,
-    "episodi": 0,
-    "generi": [
-      {
-        "genere": ""
-      }
-    ],
-    "copertina": "https://www.animeclick.it/immagini/anime/Boku_no_Hero_Academia/cover/Boku_no_Hero_Academia-cover-thumb.jpg",
-    "personaggi": [
-      {
-        "character": ""
-      }
-    ],
-    "anno_visione": {
-      "giorno": 0,
-      "mese": 0,
-      "anno": 0
-    },
-    "rating_personale": "6.75/10"
-  },
-  {
     "nome": "[My Isekai Life] The Reincarnated Sage's Alternate World Life: I Got a Second Profession, and Became the Most Powerful in the World",
     "nome_originale": "Tensei Kenja no Isekai Life ~Daini no Shokugyou o Ete, Sekai Saikyou ni Narimashita~",
     "studio": "",
@@ -5262,9 +5226,11 @@
   {
     "nome": "Takt Op. Destiny",
     "nome_originale": "Takt Op. Destiny",
+    "copertina": "https://www.animeclick.it/immagini/anime/Takt_Op_Destiny/cover/Takt_Op_Destiny-cover-thumb.jpg",
+    "anno_uscita": "2021",
+    "episodi": "12",
     "studio": "MADHOUSE, MAPPA",
-    "anno_uscita": 2021,
-    "episodi": 12,
+    "rating_personale": "6.75/10",
     "generi": [
       {
         "genere": "Azione"
@@ -5276,7 +5242,6 @@
         "genere": "Fantasy"
       }
     ],
-    "copertina": "https://www.animeclick.it/immagini/anime/Takt_Op_Destiny/cover/Takt_Op_Destiny-cover-thumb.jpg",
     "personaggi": [
       {
         "character": "Asahina Takt"
@@ -5293,13 +5258,7 @@
       {
         "character": "Titan"
       }
-    ],
-    "anno_visione": {
-      "giorno": 4,
-      "mese": 5,
-      "anno": 2024
-    },
-    "rating_personale": "6.75/10"
+    ]
   },
   {
     "nome": "Tales of Zestiria: The Cross",
@@ -11099,26 +11058,33 @@
     "rating_personale": "6.25/10"
   },
   {
-    "nome": "Grisaia no Kajitsu",
-    "nome_originale": "",
-    "studio": "",
-    "anno_uscita": 0,
-    "episodi": 0,
+    "nome": "The Fruit of Grisaia",
+    "nome_originale": "Grisaia no Kajitsu",
+    "copertina": "https://www.animeclick.it/images/serie/GrisaianoKajitsu/GrisaianoKajitsu-cover-thumb.jpg",
+    "anno_uscita": "2014",
+    "episodi": "",
+    "studio": "8-bit",
+    "rating_personale": "6.5/10",
     "generi": [
       {
-        "genere": ""
+        "genere": "Drammatico"
       },
       {
-        "genere": ""
+        "genere": "Ecchi"
       },
       {
-        "genere": ""
+        "genere": "Harem"
       },
       {
-        "genere": ""
+        "genere": "Psicologico"
+      },
+      {
+        "genere": "Romantico"
+      },
+      {
+        "genere": "Scolastico"
       }
     ],
-    "copertina": "",
     "personaggi": [
       {
         "character": ""
@@ -11147,13 +11113,7 @@
       {
         "character": ""
       }
-    ],
-    "anno_visione": {
-      "giorno": 2,
-      "mese": 7,
-      "anno": 2025
-    },
-    "rating_personale": "6.5/10"
+    ]
   },
   {
     "nome": "Link Click",
@@ -11244,6 +11204,309 @@
       },
       {
         "genere": "Fantasy"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "King's Game The Animation",
+    "nome_originale": "Ōsama Game The Animation",
+    "copertina": "https://www.animeclick.it/immagini/anime/Osama_Game_The_Animation/cover/Osama_Game_The_Animation-cover-thumb.jpg",
+    "anno_uscita": "2017",
+    "episodi": "12",
+    "studio": "Seven",
+    "rating_personale": "5/10",
+    "generi": [
+      {
+        "genere": "Drammatico"
+      },
+      {
+        "genere": "Horror"
+      },
+      {
+        "genere": "Mistero"
+      },
+      {
+        "genere": "Scolastico"
+      },
+      {
+        "genere": "Soprannaturale"
+      },
+      {
+        "genere": "Gore"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "From Old Country Bumpkin to Master Swordsman",
+    "nome_originale": "Katainaka no Ossan, Kensei ni Naru",
+    "copertina": "https://www.animeclick.it/immagini/anime/Katainaka_no_Ossan_Kensei_ni_Naru/cover/Katainaka_no_Ossan_Kensei_ni_Naru-cover-thumb.webp",
+    "anno_uscita": "2025",
+    "episodi": "12",
+    "studio": "Hayabusa Film",
+    "rating_personale": "6.25/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Commedia"
+      },
+      {
+        "genere": "Fantasy"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "I'm the Evil Lord of an Intergalactic Empire!",
+    "nome_originale": "Ore wa Seikan Kokka no Akutoku Ryōshu!",
+    "copertina": "https://www.animeclick.it/immagini/anime/Ore_wa_Seikan_Kokka_no_Akutoku_Ryoushu/cover/Ore_wa_Seikan_Kokka_no_Akutoku_Ryoushu-cover-thumb.jpeg",
+    "anno_uscita": "2025",
+    "episodi": "12",
+    "studio": "Quad",
+    "rating_personale": "4.5/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Commedia"
+      },
+      {
+        "genere": "Ecchi"
+      },
+      {
+        "genere": "Fantasy"
+      },
+      {
+        "genere": "Harem"
+      },
+      {
+        "genere": "Militari"
+      },
+      {
+        "genere": "Romantico"
+      },
+      {
+        "genere": "Sci-Fi"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "To Be Hero X",
+    "nome_originale": "Tu Bian Yingxiong X",
+    "copertina": "https://www.animeclick.it/immagini/anime/To_Be_Hero_X/cover/To_Be_Hero_X-cover-thumb.jpg",
+    "anno_uscita": "2025",
+    "episodi": "24",
+    "studio": "Paper Plane Animation Studio",
+    "rating_personale": "7.75/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Superpoteri"
+      },
+      {
+        "genere": "Soprannaturale"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "Witch Watch",
+    "nome_originale": "WITCH WATCH",
+    "copertina": "https://www.animeclick.it/immagini/anime/WITCH_WATCH/cover/WITCH_WATCH-cover-thumb.jpg",
+    "anno_uscita": "2025",
+    "episodi": "25",
+    "studio": "Bibury Animation Studios",
+    "rating_personale": "6/10",
+    "generi": [
+      {
+        "genere": "Commedia"
+      },
+      {
+        "genere": "Drammatico"
+      },
+      {
+        "genere": "Fantasy"
+      },
+      {
+        "genere": "Romantico"
+      },
+      {
+        "genere": "Shounen"
+      },
+      {
+        "genere": "Slice of Life"
+      },
+      {
+        "genere": "Soprannaturale"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "4 Cut Hero",
+    "nome_originale": "Si Ge Yongzhe",
+    "copertina": "https://www.animeclick.it/immagini/anime/Si_Ge_Yongzhe/cover/Si_Ge_Yongzhe-cover-thumb.jpg",
+    "anno_uscita": "2023",
+    "episodi": "10",
+    "studio": "Phantom",
+    "rating_personale": "7/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Commedia"
+      },
+      {
+        "genere": "Fantasy"
+      },
+      {
+        "genere": "Harem"
+      },
+      {
+        "genere": "Parodia"
+      },
+      {
+        "genere": "Romantico"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "The Water Magician",
+    "nome_originale": "Mizu Zokusei no Mahō Tsukai",
+    "copertina": "https://www.animeclick.it/immagini/anime/Mizu_Zokusei_no_Mahou_Tsukai/cover/Mizu_Zokusei_no_Mahou_Tsukai-cover-thumb.jpg",
+    "anno_uscita": "2025",
+    "episodi": "12",
+    "studio": "TYPHOON GRAPHICS",
+    "rating_personale": "6.5/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Fantasy"
+      },
+      {
+        "genere": "Isekai"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "New Saga",
+    "nome_originale": "Tsuyokute New Saga",
+    "copertina": "https://www.animeclick.it/immagini/anime/Tsuyokute_New_Saga/cover/Tsuyokute_New_Saga-cover-thumb.jpg",
+    "anno_uscita": "2025",
+    "episodi": "12",
+    "studio": "Sotsu",
+    "rating_personale": "6.75/10",
+    "generi": [
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Fantasy"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "Magic Maker: How to Make Magic in Another World",
+    "nome_originale": "Magic Maker ~Isekai Mahō no Tsukurikata~",
+    "copertina": "https://www.animeclick.it/immagini/anime/Magic_Maker_Isekai_Mahou_no_Tsukurikata/cover/Magic_Maker_Isekai_Mahou_no_Tsukurikata-cover-thumb.jpg",
+    "anno_uscita": "2025",
+    "episodi": "12",
+    "studio": "Studio DEEN",
+    "rating_personale": "5.75/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Fantasy"
+      },
+      {
+        "genere": "Isekai"
+      },
+      {
+        "genere": "Slice of Life"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "The Legend of Hei",
+    "nome_originale": "Luo Xiao Hei Zhanji",
+    "copertina": "https://www.animeclick.it/immagini/anime/La_leggenda_di_Hei/cover/La_leggenda_di_Hei-cover-thumb.jpeg",
+    "anno_uscita": "2019",
+    "episodi": "1",
+    "studio": "HMCH",
+    "rating_personale": "8/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Drammatico"
+      },
+      {
+        "genere": "Fantasy"
+      }
+    ],
+    "personaggi": []
+  },
+  {
+    "nome": "My Hero Academia",
+    "nome_originale": "Boku no Hero Academia",
+    "copertina": "https://www.animeclick.it/immagini/anime/Boku_no_Hero_Academia/cover/Boku_no_Hero_Academia-cover-thumb.jpg",
+    "anno_uscita": "2016",
+    "episodi": "170",
+    "studio": "BONES",
+    "rating_personale": "6.75/10",
+    "generi": [
+      {
+        "genere": "Azione"
+      },
+      {
+        "genere": "Avventura"
+      },
+      {
+        "genere": "Commedia"
+      },
+      {
+        "genere": "Scolastico"
+      },
+      {
+        "genere": "Shounen"
+      },
+      {
+        "genere": "Superpoteri"
       }
     ],
     "personaggi": []

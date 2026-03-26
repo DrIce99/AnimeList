@@ -12,9 +12,11 @@ let editSelectedGenres = [];
 
 const addModal = document.getElementById('addModal');
 
-const listaAnime = []
+const listaAnime = [];
 
-let addOnce = false
+let addOnce = false;
+
+let animeSelezionato = null;
 
 const colorPicker = document.getElementById("themeColor");
 const saved = localStorage.getItem('selectedContainer') || 'none';
@@ -94,6 +96,7 @@ function elaborate(data) {
       case "Avventura": color = "bg-brown-box"; imgcolor = "bgimg-brown-box"; break;
       case "Scolastico": color = "bg-red-box"; imgcolor = "bgimg-red-box"; break;
       case "Horror":
+      case "Gore":
       case "Mistero": color = "bg-white-box"; imgcolor = "bgimg-white-box"; break;
       case "Storico":
       case "Guerra":
@@ -101,6 +104,10 @@ function elaborate(data) {
       case "Romantico":
       case "Sentimentale": color = "bg-purple-box"; imgcolor = "bgimg-purple-box"; break;
       case "Sport": color = "bg-light-blue-box"; imgcolor = "bgimg-light-blue-box"; break;
+      case "Isekai": color = "bg-bluerple-box"; imgcolor = "bgimg-bluerple-box"; break;
+      case "Mecha": color = "bg-orange-box"; imgcolor = "bgimg-orange-box"; break;
+      case "Fantasy": color = "bg-greenblue-box"; imgcolor = "bgimg-greenblue-box"; break;
+      case "Shounen": color = "bg-bluerange-box"; imgcolor = "bgimg-bluerange-box"; break;
       default: color = "bg-gray-box"; imgcolor = "bgimg-gray-box";
     }
     
@@ -242,20 +249,24 @@ let genrePriority = {
   "Combattimento": 0,
   "Drammatico": 1,
   "Ecchi": 3,
-  "Fantasy": 0,
+  "Fantasy": 2,
   "Gioco": 0,
+  "Gore": 3,
   "Harem": 3,
   "Horror": 3,
+  "Isekai": 3,
   "Magia": 0,
+  "Mecha": 2,
   "Militari": 3,
   "Mistero": 3,
+  "Parodia": 0,
   "Psicologico": 2,
   "Romantico": 3,
   "Scolastico": 3,
   "Sentimentale": 3,
   "Soprannaturale": 0,
   "Sci-Fi": 2,
-  "Shounen": 0,
+  "Shounen": 2,
   "Shoujo": 0,
   "Seinen": 0,
   "Slice of Life": 1,
@@ -274,11 +285,15 @@ let genreList = [
   "Ecchi",
   "Fantasy",
   "Gioco",
+  "Gore",
   "Harem",
   "Horror",
+  "Isekai",
   "Magia",
+  "Mecha",
   "Militari",
   "Mistero",
+  "Parodia",
   "Psicologico",
   "Romantico",
   "Scolastico",
@@ -340,6 +355,7 @@ function getColorClass(gen) {
     case "Harem":
       return "bg-pink-box";
     case "Horror":
+    case "Gore":
     case "Mistero":
       return "bg-white-box";
     case "Militari":
@@ -354,6 +370,14 @@ function getColorClass(gen) {
       return "bg-red-box";
     case "Sport":
       return "bg-light-blue-box";
+    case "Isekai":
+      return "bg-bluerple-box";
+    case "Mecha":
+      return "bg-orange-box";
+    case "Fantasy":
+      return "bg-greenblue-box";
+    case "Shounen":
+      return "bg-bluerange-box";
     default:
       return "bg-gray-box";
   };
@@ -395,10 +419,10 @@ mainBtn.addEventListener('click', () => {
 });
 
 // Apri modale
-document.getElementById('editAnime').addEventListener('click', () => {
-  editModal.style.display = 'flex';
-  bloccaScroll();
-});
+// document.getElementById('editAnime').addEventListener('click', () => {
+//   editModal.style.display = 'flex';
+//   bloccaScroll();
+// });
 
 document.getElementById('closeEdit').addEventListener('click', () => {
   editModal.style.display = 'none';
@@ -750,7 +774,7 @@ function renderAvailableGenres() {
   genreList.forEach(gen => {
 
     const item = document.createElement("div");
-    item.className = "genre-item";
+    item.className = "search-item";
     item.textContent = gen;
 
     // evidenzia se già selezionato
@@ -777,6 +801,158 @@ function renderAvailableGenres() {
 
   });
 
+}
+
+document.getElementById("deleteAnime").addEventListener("click", async () => {
+
+  if (animeInModifica === null) {
+    alert("Nessun anime selezionato");
+    return;
+  }
+
+  const conferma = confirm("Sei sicuro di voler eliminare questo anime?");
+  if (!conferma) return;
+
+  try {
+
+    const res = await fetch(
+      `http://127.0.0.1:5000/api/anime/${animeInModifica}`,
+      {
+        method: "DELETE"
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+
+      listaAnime.splice(animeInModifica, 1);
+
+      elaborate(listaAnime);
+      updateAnimeCount(listaAnime.length);
+
+      // chiudi modale
+      document.getElementById("editModal").style.display = "none";
+
+      alert("Anime eliminato");
+
+    } else {
+      alert("Errore: " + data.message);
+    }
+
+    
+
+  } catch (err) {
+    console.error(err);
+    alert("Errore server");
+  }
+
+});
+
+let azioneCorrente;
+
+document.getElementById("editAnime2").addEventListener("click", () => {
+  azioneCorrente = "modifica";
+  apriSelectModal();
+  document.getElementById("selectAnimeModal").style.display = 'flex';
+});
+
+document.getElementById("deleteAnime2").addEventListener("click", () => {
+  azioneCorrente = "elimina";
+  apriSelectModal();
+});
+
+function apriSelectModal() {
+  document.getElementById("selectAnimeModal").style.display = "flex";
+  document.getElementById("selectAnimeInput").value = "";
+  document.getElementById("selectAnimeResults").innerHTML = "";
+  animeSelezionato = null;
+  bloccaScroll();
+}
+
+document.getElementById("closeSelectModal").addEventListener("click", () => {
+  document.getElementById("selectAnimeModal").style.display = "none";
+  riabilitaScroll();
+});
+
+const selectInput = document.getElementById("selectAnimeInput");
+const selectResults = document.getElementById("selectAnimeResults");
+
+selectInput.addEventListener("keyup", (e) => {
+  const term = normalizeText(e.target.value);
+
+  if (term.length < 2) {
+    selectResults.innerHTML = "";
+    return;
+  }
+
+  const matches = listaAnime
+    .filter(a =>
+      normalizeText(a.nome).includes(term) ||
+      normalizeText(a.nome_originale).includes(term)
+    )
+    .slice(0, 6);
+
+  selectResults.innerHTML = matches.map(a => `
+    <div class="search-item" onclick="selezionaAnime(${a.id})">
+      ${a.nome}
+    </div>
+  `).join("");
+});
+
+window.selezionaAnime = function (id) {
+
+  const anime = listaAnime.find(a => a.id === id);
+  if (!anime) return;
+
+  animeSelezionato = anime;
+
+  // Chiudi modale selezione
+  document.getElementById("selectAnimeModal").style.display = "none";
+  riabilitaScroll();
+
+  // Decidi cosa fare
+  if (azioneCorrente === "modifica") {
+    apriModifica(anime.id);
+  }
+
+  if (azioneCorrente === "elimina") {
+    eliminaAnime(anime.id);
+  }
+};
+
+async function eliminaAnime(id) {
+
+  const anime = listaAnime.find(a => a.id === id);
+  if (!anime) return;
+
+  if (!confirm(`Vuoi eliminare ${anime.nome}?`)) return;
+
+  try {
+    const res = await fetch(`http://127.0.0.1:5000/api/anime/${id}`, {
+      method: "DELETE"
+    });
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+
+      // rimuovi dalla lista locale
+      const index = listaAnime.findIndex(a => a.id === id);
+      if (index !== -1) listaAnime.splice(index, 1);
+
+      elaborate(listaAnime);
+
+      alert("Anime eliminato!");
+
+    } else {
+      alert("Errore: " + data.message);
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Errore server");
+  }
 }
 
 loadSettings();

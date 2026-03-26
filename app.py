@@ -60,12 +60,18 @@ def update_anime(anime_id):
     
 @app.route('/api/anime/<int:anime_id>', methods=['DELETE'])
 def delete_anime(anime_id):
-    data = load_data()
-    if 0 <= anime_id < len(data):
-        data.pop(anime_id)
-        save_data(data)
-        return jsonify({"status": "success"})
-    return jsonify({"status": "error"}), 404
+    try:
+        data = load_data()
+
+        if 0 <= anime_id < len(data):
+            data.pop(anime_id)  # rimuove l'anime
+            save_data(data)
+            return jsonify({"status": "success"})
+        
+        return jsonify({"status": "error", "message": "Anime non trovato"}), 404
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
     # debug=True riavvia il server da solo quando salva il file

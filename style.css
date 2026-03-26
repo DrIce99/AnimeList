@@ -227,7 +227,11 @@ img {
 .bg-red-box,
 .bg-white-box,
 .bg-purple-box,
-.bg-light-blue-box {
+.bg-light-blue-box,
+.bg-orange-box,
+.bg-bluerange-box,
+.bg-greenblue-box,
+.bg-bluerple-box {
   position: relative;
 }
 
@@ -240,7 +244,11 @@ img {
 .bg-red-box::after,
 .bg-white-box::after,
 .bg-purple-box::after,
-.bg-light-blue-box::after {
+.bg-light-blue-box::after, 
+.bg-orange-box::after, 
+.bg-bluerange-box::after, 
+.bg-greenblue-box::after, 
+.bg-bluerple-box::after {
   position: absolute;
   top: -2px;
   bottom: -2px;
@@ -268,27 +276,43 @@ img {
 }
 
 .bg-pink-box::after {
-  background: linear-gradient(71deg, #0e0a0d, rgb(255, 5, 205), #0e0a0d);
+  background: linear-gradient(71deg, #0e0a0d, #ff05cd, #ff1313);
 }
 
 .bg-brown-box::after {
-  background: linear-gradient(71deg, #0e0a0a, rgb(106, 38, 9), #0e0b0a);
+  background: linear-gradient(71deg, #0e0a0a, #6a2609, #0e0b0a);
 }
 
 .bg-red-box::after {
-  background: linear-gradient(71deg, #0e0a0a, rgb(187, 16, 16), #0e0a0a);
+  background: linear-gradient(71deg, #0e0a0a, #bb1010, #0e0a0a);
 }
 
 .bg-white-box::after {
-  background: linear-gradient(71deg, #0b0b0b, rgb(255, 255, 255), #101010);
+  background: linear-gradient(71deg, #0b0b0b, #ffffff, #101010);
 }
 
 .bg-purple-box::after {
-  background: linear-gradient(71deg, #0b0b0b, rgb(89, 0, 213), #101010);
+  background: linear-gradient(71deg, #0b0b0b, #5900d5, #101010);
 }
 
 .bg-light-blue-box::after {
-  background: linear-gradient(71deg, #0b0b0b, rgb(20, 208, 225), #06846d);
+  background: linear-gradient(71deg, #0b0b0b, #14d0e1, #06846d);
+}
+
+.bg-bluerple-box::after {
+  background: linear-gradient(71deg, #0b0b0b, #1900ff, #06846d);
+}
+
+.bg-bluerange-box::after {
+  background: linear-gradient(71deg, #0b0b0b, #1900ff, #ff5900);
+}
+
+.bg-greenblue-box::after {
+  background: linear-gradient(71deg, #0b0b0b, #00ff6e, #1900ff);
+}
+
+.bg-orange-box::after {
+  background: linear-gradient(71deg, #0b0b0b, #ff8000, #101010);
 }
 
 /*  */
@@ -310,27 +334,43 @@ img {
 }
 
 .bgimg-pink-box {
-  box-shadow: inset 0 0 0 2px rgb(255, 5, 205);
+  box-shadow: inset 0 0 0 2px #ff05cd;
 }
 
 .bgimg-brown-box {
-  box-shadow: inset 0 0 0 2px rgb(106, 38, 9);
+  box-shadow: inset 0 0 0 2px #6a2609;
 }
 
 .bgimg-red-box {
-  box-shadow: inset 0 0 0 2px rgb(187, 16, 16);
+  box-shadow: inset 0 0 0 2px #bb1010;
 }
 
 .bgimg-white-box {
-  box-shadow: inset 0 0 0 2px rgb(255, 255, 255);
+  box-shadow: inset 0 0 0 2px #ffffff;
 }
 
 .bgimg-purple-box {
-  box-shadow: inset 0 0 0 2px rgb(89, 0, 213);
+  box-shadow: inset 0 0 0 2px #5900d5;
 }
 
 .bgimg-light-blue-box {
-  box-shadow: inset 0 0 0 2px rgb(20, 208, 225);
+  box-shadow: inset 0 0 0 2px #14d0e1;
+}
+
+.bgimg-bluerple-box {
+  box-shadow: inset 0 0 0 2px #1900ff;
+}
+
+.bgimg-bluerange-box {
+  box-shadow: inset 0 0 0 2px #1900ff;
+}
+
+.bgimg-greenblue-box {
+  box-shadow: inset 0 0 0 2px #00ff6e;
+}
+
+.bgimg-orange-box {
+  box-shadow: inset 0 0 0 2px #ff8000;
 }
 
 .card-title {
@@ -1378,7 +1418,7 @@ button::before, button::after {
   scrollbar-color: var(--theme-color) #241f31;
 }
 
-/* From Uiverse.io by Nawsome */ 
+/* HEX LOADER */ 
 .socket {
   width: 200px;
   height: 200px;
@@ -1730,4 +1770,34 @@ button::before, button::after {
 #loader.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+select {
+  background-color: #111111;
+  border: transparent;
+}
+
+option {
+  background: #111111;
+}
+
+.delete-btn {
+  background: #ff4d4d;
+  color: white;
+  font-family: 'Barlow Condensed';
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Barlow Condensed';
+  margin: 10px;
+}
+
+.delete-btn:hover {
+  background: #ff1a1a;
+  font-family: 'Barlow Condensed';
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
 }
